@@ -14,6 +14,8 @@ const ProductSchema: Schema = new Schema({
   category: { type: String, required: true },
   description: { type: String, required: true },
   imageUrl: { type: String, required: true },
+  purchased: { type: Boolean, default: false }, // Flag for purchase status
+  purchaseDate: {type: Date}, // Date of purchase
 });
 
 export default mongoose.model<IProduct>('Product', ProductSchema);

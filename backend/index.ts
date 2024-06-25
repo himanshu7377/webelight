@@ -4,6 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/db';
 import productRoutes from './routes/productRoutes';
+import cartRoutes from './routes/cartRoutes';
+import purchasedRoutes from './routes/purchasedRoute';
 
 dotenv.config();
 
@@ -19,6 +21,8 @@ app.use(bodyParser.json());
 
 // Routes
 app.use('/api', productRoutes);
+app.use('/api', cartRoutes);
+app.use('/api', purchasedRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
