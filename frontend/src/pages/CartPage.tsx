@@ -18,6 +18,7 @@ import {
   Box,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 
 const CartPage: React.FC = () => {
 
@@ -62,16 +63,27 @@ const CartPage: React.FC = () => {
         Welcome To Cart Page
       </Typography>
       <Card>
+      <Box sx={{  display: "flex" , alignItems: "center", justifyContent: "flex-start", gap: 50,mt: 2, padding: 2,  }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => navigate("/")}
+          sx={{ mt: 2 , display: "flex-start", alignItems: "center", justifyContent: "center"}}
+        >
+          Back
+        </Button>
         <Typography
-          variant="h5"
+          variant="h4"
           gutterBottom
-          sx={{ textAlign: "center", fontWeight: "bold", mt: 2 }}
+          sx={{ textAlign: "right", fontWeight: "bold", mt: 2, display: "flex", alignItems: "center", justifyContent: "flex-end" , gap: 1}}
         >
           Cart Items List
+          <ShoppingCartIcon sx={{ width: '40px', height: '40px' }} />
         </Typography>
+      </Box>
         {cart.map((item) => (
           <Grid item xs={12} sm={6} md={4} key={item.id}>
-            <CardContent>
+            <CardContent sx={{ padding: 5 }}>
             {/* {console.log("Cart item",item)} */}
               <Box
                 sx={{
@@ -90,6 +102,7 @@ const CartPage: React.FC = () => {
                 display="flex"
                 alignItems="center"
                 justifyContent="space-between"
+               
               >
                 <TextField
                   type="number"
@@ -112,8 +125,8 @@ const CartPage: React.FC = () => {
             </CardContent>
           </Grid>
         ))}
-        <Box marginTop={4} display="flex" justifyContent="space-around">
-          <Typography variant="h6">
+        <Box marginTop={4} display="flex" justifyContent="space-around" mb={2}>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
             Total Price: ${totalPrice.toFixed(2)}
           </Typography>
           <Button variant="contained" color="primary" size="large" onClick={handlePurchase}>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../store/store';
-import { addProduct } from '../features/products/productSlice';
+import { addProduct, setProducts } from '../features/products/productSlice';
 import { Modal, Box, Typography, TextField, Button, Backdrop, Fade, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 
 const categories = ['Pants', 'Shirts', 'Shoes', 'Accessories',"T-Shirt","Jeans","Sunglasses"];
@@ -14,6 +14,8 @@ const AddProductModal: React.FC<{ open: boolean, handleClose: () => void }> = ({
     description: '',
     imageUrl: '',
   });
+
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }>) => {
     const { name, value } = e.target as HTMLInputElement;
@@ -36,6 +38,11 @@ const AddProductModal: React.FC<{ open: boolean, handleClose: () => void }> = ({
     if (response.ok) {
       const addedProduct = await response.json();
       dispatch(addProduct(addedProduct));
+
+       // Fetch the updated list of products
+       const res = await fetch('http://localhost:4000/api/products');
+       const updatedProducts = await res.json();
+       dispatch(setProducts(updatedProducts));
       handleClose();
     }
   };

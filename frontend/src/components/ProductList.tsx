@@ -58,17 +58,18 @@ const ProductList: React.FC = () => {
   }
 
   return (
-    <Container>
-      <Typography variant="h2" gutterBottom>
+    <Container sx={{ marginTop: 4 , bgcolor: '#90a5e7', borderRadius: 5, padding: 2, width: '100%' }}>
+      <Typography variant="h2" gutterBottom >
         Product List
       </Typography>
       <Grid container spacing={2} alignItems="center" marginBottom={2} >
-        <Grid item xs={12} sm={6} md={4} >
+        <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex', alignItems: 'center' }} >
           <TextField
             label="Search"
             variant="outlined"
             fullWidth
             value={search}
+            color='primary'
             onChange={handleSearchChange}
           />
         </Grid>
