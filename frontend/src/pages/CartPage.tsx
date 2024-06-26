@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import emptycart from '../asset/emptycart.png';
 
 const CartPage: React.FC = () => {
 
@@ -81,7 +82,7 @@ const CartPage: React.FC = () => {
           <ShoppingCartIcon sx={{ width: '40px', height: '40px' }} />
         </Typography>
       </Box>
-        {cart.map((item) => (
+        {cart.length > 0 ? cart.map((item) => (
           <Grid item xs={12} sm={6} md={4} key={item.id}>
             <CardContent sx={{ padding: 5 }}>
             {/* {console.log("Cart item",item)} */}
@@ -124,7 +125,21 @@ const CartPage: React.FC = () => {
               </Box>
             </CardContent>
           </Grid>
-        ))}
+        )) : (
+          <Box sx={{ mt: 2, alignItems: "center", justifyContent: "center" }} >
+
+
+            <Typography variant="h5" gutterBottom>
+
+            Your cart is empty
+            </Typography>
+            <img src={emptycart} alt="Empty cart" width={400} height={300} onError={(e) => e.currentTarget.src = './noimg.png'} />
+          </Box>
+        
+        
+        
+        
+        )}
         <Box marginTop={4} display="flex" justifyContent="space-around" mb={2}>
           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
             Total Price: ${totalPrice.toFixed(2)}

@@ -1,22 +1,27 @@
-// src/components/ProductList.tsx
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import { setProducts } from '../features/products/productSlice';
-import { Container, Grid, Typography, TextField, MenuItem, Select, InputLabel, FormControl, Box, Button } from '@mui/material';
-import { Avatar } from '@mui/material';
+import {
+  Container, Grid, Typography, TextField, MenuItem, Select, InputLabel, FormControl, Box, Button
+} from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ProductCard from './ProductCard';
 import AddProductModal from './AddProductModal';
 import CartIcon from './CartIcon';
 import { useNavigate } from 'react-router-dom';
 
+import Pagination from './Pagination';
+
 const ProductList: React.FC = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const products = useAppSelector((state) => state.products.products);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const [priceRange, setPriceRange] = useState<number[]>([0, 1000]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 8;
 
   const [open, setOpen] = useState(false);
 
@@ -46,30 +51,34 @@ const ProductList: React.FC = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const handleProfile = () => {
+    navigate('/profile');
+  };
+
   const filteredProducts = products.filter((product) =>
-    product.name && product.name.toLowerCase().includes(search.toLowerCase()) &&
+    product.name.toLowerCase().includes(search.toLowerCase()) &&
     product.category.includes(category) &&
     product.price >= priceRange[0] &&
     product.price <= priceRange[1]
   );
 
-  const handleProfile=()=>{
-    navigate('/profile');
-  }
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   return (
-    <Container sx={{ marginTop: 4 , bgcolor: '#90a5e7', borderRadius: 5, padding: 2, width: '100%' }}>
-      <Typography variant="h2" gutterBottom >
+    <Container sx={{ marginTop: 4, bgcolor: '#90a5e7', borderRadius: 5, padding: 2, width: '100%' }}>
+      <Typography variant="h2" gutterBottom>
         Product List
       </Typography>
-      <Grid container spacing={2} alignItems="center" marginBottom={2} >
-        <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex', alignItems: 'center' }} >
+      <Grid container spacing={2} alignItems="center" marginBottom={2}>
+        <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex', alignItems: 'center' }}>
           <TextField
             label="Search"
             variant="outlined"
             fullWidth
             value={search}
-            color='primary'
+            color="primary"
             onChange={handleSearchChange}
           />
         </Grid>
@@ -109,26 +118,28 @@ const ProductList: React.FC = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={6} sm={3} md={2}  sx={{display:'flex',justifyContent:'center',alignItems:'center',ml:5,mb:1}}>
-          
-            <Button variant="contained" color="primary"  sx={{mt:1,mr:5,px:8}} onClick={handleOpen}>
-              Add Product
-            </Button>
-            
-            <CartIcon />
-          
+        <Grid item xs={6} sm={3} md={2} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', ml: 5, mb: 1 }}>
+          <Button variant="contained" color="primary" sx={{ mt: 1, mr: 5, px: 8 }} onClick={handleOpen}>
+            Add Product
+          </Button>
+          <CartIcon />
         </Grid>
-            <AccountCircleIcon sx={{ width: '70px', height: '70px', mt:2,ml:10 }} onClick={handleProfile} />
-        
+        <AccountCircleIcon sx={{ width: '70px', height: '70px', mt: 2, ml: 10 }} onClick={handleProfile} />
       </Grid>
       <Grid container spacing={2}>
-        {filteredProducts.map((product) => (
+        {currentProducts.map((product) => (
           <Grid item key={product.id} xs={12} sm={6} md={4}>
             <ProductCard product={product} />
           </Grid>
         ))}
       </Grid>
       <AddProductModal open={open} handleClose={handleClose} />
+      <Pagination
+        totalProducts={filteredProducts.length}
+        productsPerPage={productsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
     </Container>
   );
 };
