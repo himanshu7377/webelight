@@ -1,5 +1,6 @@
 // src/components/ProductCard.tsx
 import React from 'react';
+
 import { useAppDispatch } from '../store/store';
 import { addToCart } from '../features/products/productSlice';
 import { Card, CardContent, CardMedia, Typography, Button, Box } from '@mui/material';
@@ -14,13 +15,16 @@ const ProductCard: React.FC<{ product: any }> = ({ product }) => {
 
   return (
     <Card style={{ height: '100%' , borderRadius: '30px'}}>
-      <CardMedia
+      {/* <CardMedia
         component="img"
         // alt={product.name}
         height="140"
         image={product.imageUrl}
         // title={product.name}
-      />
+      /> */}
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <img src={product.imageUrl} alt={product.name} width={400} height={300} onError={(e) => e.currentTarget.src = './noimg.png'} />
+      </Box>
       <CardContent  >
         <Box>
         <Typography gutterBottom variant="h5" sx={{ fontWeight: 'bold', display: 'flex', alignItems: 'left' }} >
