@@ -21,7 +21,7 @@ const ProductList: React.FC = () => {
   const [priceRange, setPriceRange] = useState<number[]>([0, 1000]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 8;
+  const productsPerPage = 6;
 
   const [open, setOpen] = useState(false);
 
@@ -78,7 +78,7 @@ const ProductList: React.FC = () => {
 
   return (
     <Container sx={{ marginTop: 4, bgcolor: '#90a5e7', borderRadius: 5, padding: 2, width: '100%' }}>
-      <Typography variant="h2" gutterBottom>
+      <Typography variant="h2" gutterBottom sx={{ fontWeight: 'bold', color: 'darkblue' }}>
         Product List
       </Typography>
       <Grid container spacing={2} alignItems="center" marginBottom={2}>

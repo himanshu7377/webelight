@@ -121,11 +121,12 @@ const AddProductModal: React.FC<{ open: boolean, handleClose: () => void }> = ({
             onChange={handleInputChange}
           />
           <TextField
-            label="Image URL"
+            label="Image URL (Leave empty if you don't want to add an image)"
             name="imageUrl"
             variant="outlined"
             fullWidth
             margin="normal"
+          
             value={newProduct.imageUrl}
             onChange={handleInputChange}
           />
