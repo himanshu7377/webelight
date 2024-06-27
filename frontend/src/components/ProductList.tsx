@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/store';
 import { setProducts } from '../features/products/productSlice';
 import {
-  Container, Grid, Typography, TextField, MenuItem, Select, InputLabel, FormControl, Box, Button
+  Container, Grid, Typography, TextField, MenuItem, Select, InputLabel, FormControl, Button
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ProductCard from './ProductCard';
@@ -36,14 +36,18 @@ const ProductList: React.FC = () => {
     fetchProducts();
   }, [dispatch]);
 
+  // handle search change
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
+
+  // handle category change
   const handleCategoryChange = (e: React.ChangeEvent<{ value: unknown }>) => {
     setCategory(e.target.value as string);
   };
 
+  // handle price range change
   const handlePriceRangeChange = (e: React.ChangeEvent<{ value: unknown }>) => {
     setPriceRange(e.target.value as number[]);
   };
@@ -51,10 +55,14 @@ const ProductList: React.FC = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+
+  // handle profile click
   const handleProfile = () => {
     navigate('/profile');
   };
 
+
+  // filter products
   const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(search.toLowerCase()) &&
     product.category.includes(category) &&
@@ -64,6 +72,8 @@ const ProductList: React.FC = () => {
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+  // set currentpage products
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
   return (
@@ -128,7 +138,7 @@ const ProductList: React.FC = () => {
       </Grid>
       <Grid container spacing={2}>
         {currentProducts.map((product) => (
-          <Grid item key={product.id} xs={12} sm={6} md={4}>
+          <Grid item key={product._id} xs={12} sm={6} md={4}>
             <ProductCard product={product} />
           </Grid>
         ))}
