@@ -74,7 +74,7 @@ const AddProductModal: React.FC<{ open: boolean, handleClose: () => void }> = ({
           noValidate
           autoComplete="off"
         >
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h6" sx={{ fontWeight: 'bold' }} gutterBottom>
             Add New Product
           </Typography>
           <TextField
