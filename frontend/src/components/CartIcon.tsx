@@ -1,4 +1,4 @@
-// src/components/CartIcon.tsx
+
 import React from 'react';
 import { useAppSelector } from '../store/store';
 import { IconButton, Badge } from '@mui/material';
@@ -9,6 +9,7 @@ const CartIcon: React.FC = () => {
   const cart = useAppSelector((state) => state.products.cart);
   const navigate = useNavigate();
 
+  // Function to handle cart icon click
   const handleClick = () => {
     navigate('/cart');
   };

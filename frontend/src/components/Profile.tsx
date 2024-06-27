@@ -24,6 +24,9 @@ const Profile: React.FC = () => {
   const [endDate, setEndDate] = useState<string>("");
   const [purchaseHistory, setPurchaseHistory] = useState<Purchase[]>([]);
     const navigate = useNavigate();
+
+
+    // Fetch purchase history
   const fetchPurchaseHistory = async () => {
 
     if (!startDate || !endDate) {
@@ -43,6 +46,7 @@ const Profile: React.FC = () => {
     }
   };
 
+  // Add event handlers for start and end date inputs
   const handleStartDateChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {

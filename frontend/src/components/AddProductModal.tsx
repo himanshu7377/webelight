@@ -16,7 +16,7 @@ const AddProductModal: React.FC<{ open: boolean, handleClose: () => void }> = ({
   });
 
 
-
+//  handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }>) => {
     const { name, value } = e.target as HTMLInputElement;
     setNewProduct((prevProduct) => ({
@@ -25,6 +25,7 @@ const AddProductModal: React.FC<{ open: boolean, handleClose: () => void }> = ({
     }));
   };
 
+  //  add product
   const handleAddProduct = async () => {
     // Send a PUT request to add the new product
     const response = await fetch('http://localhost:4000/api/addProduct', {

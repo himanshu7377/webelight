@@ -11,12 +11,16 @@ interface PaginationProps {
 const Pagination: React.FC<PaginationProps> = ({ totalProducts, productsPerPage, currentPage, setCurrentPage }) => {
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
+
+  // Added handlePrevPage function
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
   };
 
+
+  // Added handleNextPage function
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
